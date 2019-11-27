@@ -18,12 +18,7 @@ RUN	apt-get install -y \
 	xvfb && \
     gem install bundler
 
-# Copy project src to container
-COPY ./Gemfile /app/
-COPY ./Gemfile.lock /app/
-
-# Set /app as workdir
 WORKDIR /app
-
-# Install dependencies
+COPY Gemfile /app/
+COPY Gemfile.lock /app/
 RUN bundle install
