@@ -15,10 +15,18 @@ RUN	apt-get install -y \
 	libqt5webkit5-dev \
 	qt5-default \
 	git \
-	xvfb && \
-    gem install bundler
+	xvfb
 
 WORKDIR /app
-COPY Gemfile /app/
-COPY Gemfile.lock /app/
+
+ENV BUNDLE_PATH /app
+ENV GEM_PATH /app
+ENV GEM_HOME /app
+
+ADD . /app
+
+RUN gem install bundler
+
+COPY Gemfile Gemfile
+
 RUN bundle install
