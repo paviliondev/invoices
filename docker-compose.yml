@@ -1,28 +1,15 @@
-networks:
-  front:
-    external:
-      name: front
+version: '3'
 services:
   db:
-    image: postgres:9.6-alpine
-    ports:
-      - 5432:5432
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
   web:
     build: .
-    command: bundle exec rails s -b '0.0.0.0'
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/invoices
+    ports:
+      - "3000:3000"
     depends_on:
       - db
-    image: pavilion/invoices
-    networks:
-      default:
-      front:
-        aliases:
-        - invoices
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/app
-    stdin_open: true
-    tty: true
-    working_dir: /app
-version: '3'
