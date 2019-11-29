@@ -1,6 +1,18 @@
 # Pavilion Invoices
 
-This is a fork of [Siwapp](https://github.com/siwapp/siwapp). We're maintaining a separate fork to allow us to fully integrate invoicing into our Discourse-based work system. 
+This app is a fork of [Siwapp](https://github.com/siwapp/siwapp), with additional services to make it production-ready. We're forking the existing Siwapp project, partly because it's lightly maintained, and partly to allow us to fully integrate invoicing into our Discourse-based work system.
+
+There are 4 services in the app, each with their own docker container.
+
+1. Data. A Postgres database.
+
+2. App. A Rails app.
+
+3. Web. An Nginx webserver.
+
+4. Certbot.
+
+## API
 
 Until it is necessary to develop our own API documentation, please refer to the [Siwapp API Documentation](https://github.com/siwapp/siwapp/blob/master/API_DOC.md) for all API-related information.
 
@@ -8,7 +20,7 @@ Until it is necessary to develop our own API documentation, please refer to the 
 
 The app assumes you have a ``.env`` file in the app directory. The variables in this file become environment variables in the deployed container.
 
-As ``.env`` contains secrets, it has not been checked into Github. You will need to download it from here and add it to your app directory. It is ``.gitignored``.
+As ``.env`` contains secrets, it has not been checked into Github. There is a sample file in the repository. For the production .env file, please ask Angus for a copy.
 
 ## Development
 
@@ -36,11 +48,11 @@ And try again.
 
 ### Docker
 
-The Docker file is setup to work for a production instance. It should be relatively straightforward to create a development version of the file, e.g. remove asset pre-compilation.
+The Docker file is setup to work for a production instance. It should be relatively straightforward to create a development version of the file, e.g. remove asset pre-compilation. If you do this successfully, please commit any changes to master so others can use Docker in development if they wish.
 
 ## Deployment
 
-The app is deployed using [docker-compose](https://docs.docker.com/compose/production/).
+The app is deployed using [docker-compose](https://docs.docker.com/compose/production/). 
 
 ### Install the machine
 
@@ -48,7 +60,7 @@ Docker does not yet have easy way to share "machines" between computers to allow
 
 1. Install [machine-share](https://github.com/bhurlow/machine-share).
 
-2. Import the ``invoices`` machine using this file.
+2. Import the ``invoices`` machine using the machine config file (ask angus).
 
 3. Run ``docker-machine use invoices``.
 
