@@ -7,15 +7,21 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: db
-  username: postgres
-  password:
+  host: <%= ENV["POSTGRES_HOST"] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
   pool: 5
 
 development:
   <<: *default
+  host: localhost
   database: invoices_development
+
+production:
+  <<: *default
+  database: invoices_production
 
 test:
   <<: *default
+  host: localhost
   database: invoices_test

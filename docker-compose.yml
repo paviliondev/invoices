@@ -1,15 +1,48 @@
 version: '3'
+
+volumes:
+  db-data:
+    external: false
+
 services:
   db:
     image: postgres
+    env_file: .env
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-  web:
-    build: .
+      - db-data:/var/lib/postgresql/db-data
+
+  app:
+    build: 
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+      args:
+        - SECRET_KEY_BASE=${SECRET_KEY_BASE}
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - .:/invoices
+    env_file: .env
+    environment:
+      RAILS_ENV: production
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - db
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    volumes:
+      - /var/www/app/data/certbot/conf:/etc/letsencrypt
+      - /var/www/app/data/certbot/www:/var/www/certbot
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    depends_on:
+      - app
+    ports:
+      - 80:80
+      - 443:443
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - /var/www/app/data/certbot/conf:/etc/letsencrypt
+      - /var/www/app/data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

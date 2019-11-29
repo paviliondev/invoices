@@ -1,57 +1,66 @@
-# Siwapp
+# Pavilion Invoices
 
-[![Build Status](https://travis-ci.org/siwapp/siwapp.svg?branch=master)](https://travis-ci.org/siwapp/siwapp)
+This is a fork of [Siwapp](https://github.com/siwapp/siwapp). We're maintaining a separate fork to allow us to fully integrate invoicing into our Discourse-based work system. 
 
-Online Invoice Management. See [online demo](https://siwapp-demo.herokuapp.com) (user: demo@example.com, password: secret).
+Until it is necessary to develop our own API documentation, please refer to the [Siwapp API Documentation](https://github.com/siwapp/siwapp/blob/master/API_DOC.md) for all API-related information.
 
-[API Documentation](https://github.com/siwapp/siwapp/blob/master/API_DOC.md)
+## Setup
 
+The app assumes you have a ``.env`` file in the app directory. The variables in this file become environment variables in the deployed container.
 
-## SMTP Configuration
+As ``.env`` contains secrets, it has not been checked into Github. You will need to download it from here and add it to your app directory. It is ``.gitignored``.
 
-In order to be able to send emails through the app, you must configure the following environment variables in your system:
+## Development
+
+There are two ways to run this app in development, in a local docker environment, or natively.
+
+### Native
+
+1. Install RVM and the current ruby version the app is using (see Gemfile).
+
+2. In the app directory, run:
+
+     ```
+     bundle install
+     bundle exec rake db:setup
+     rails s
+     ```
+The ``db:setup`` may fail with ``role "invoices_db_user" does not exist``. If it does run
+
+     ```
+     psql -d postgres
+     create role invoices_db_user login createdb;
+     \q
+     ```
+And try again.
+
+### Docker
+
+The Docker file is setup to work for a production instance. It should be relatively straightforward to create a development version of the file, e.g. remove asset pre-compilation.
+
+## Deployment
+
+The app is deployed using [docker-compose](https://docs.docker.com/compose/production/).
+
+### Install the machine
+
+Docker does not yet have easy way to share "machines" between computers to allow multiple developers to deploy to the same Docker host. However, if you make changes to this app and you'd like to deploy it, there is a way:
+
+1. Install [machine-share](https://github.com/bhurlow/machine-share).
+
+2. Import the ``invoices`` machine using this file.
+
+3. Run ``docker-machine use invoices``.
+
+### Deploy
+
+Once you have the "invoices" docker machine setup, and the ``.env`` file in place, you can deploy your local version to production using
 
 ```
-SMTP_HOST
-SMTP_PORT
-SMTP_DOMAIN
-SMTP_USER
-SMTP_PASSWORD
-SMTP_AUTHENTICATION (plain | login | cram_md5)
-SMTP_ENABLE_STARTTLS_AUTO (set to 1 to enable it)
+docker-compose build app
+docker-compose up --no-deps -d app
 ```
 
-## Howto Install on Heroku
+For en explanation of these commands and their arguments [see here](https://docs.docker.com/compose/production/).
 
-First clone the siwapp repository into your computer:
-
-    $ git clone git@github.com:siwapp/siwapp.git
-    $ cd siwapp
-
-Create the app in heroku (we suppose in the terminal your are logged
-in heroku). Here we call the app "siwapp-demo", but choose whatever
-you like.
-
-    $ heroku apps:create siwapp-demo
-    $ heroku apps:create --region eu --buildpack heroku/ruby siwapp-demo
-    $ heroku addons:create heroku-postgresql
-    $ heroku addons:create scheduler:standard
-
-Push the code to heroku, and setup database.
-
-    $ git push heroku
-    $ heroku run rake db:setup
-
-Finally create an user to be able to login into the app.
-
-    $ heroku run "rake siwapp:user:create['demo','demo@example.com','secret_password']"
-
-If you want the recurring invoices to be generated automatically, you have to setup the heroku scheduler addon:
-
-    $ heroku addons:open scheduler
-
-Add a new job, and put "rake siwapp:generate_invoices"
-
-That's it! You can enjoy siwapp now entering on your heroku app url.
-
-    $ heroku apps:open
+Note that when changing code, we only need to redeploy the web container. The db, web and certbot containers need not be touched.
