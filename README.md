@@ -37,13 +37,15 @@ There are two ways to run this app in development, in a local docker environment
      bundle exec rake db:setup
      rails s
      ```
+     
 The ``db:setup`` may fail with ``role "invoices_db_user" does not exist``. If it does run
 
-     ```
-     psql -d postgres
-     create role invoices_db_user login createdb;
-     \q
-     ```
+```
+psql -d postgres
+create role invoices_db_user login createdb;
+\q
+```
+
 And try again.
 
 ### Docker
