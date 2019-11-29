@@ -1,0 +1,31 @@
+.siwapp-search-form {
+  width: 700px;
+  position: relative;
+  padding-bottom: 1em;
+}
+
+.siwapp-input-search {
+  display: flex;
+  border: 1px solid $generic-border-color;
+  border-radius: 0.25rem;
+  
+  .form-control {
+    border: none;
+  }
+  
+  .material-icons {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+.siwapp-search-filters {
+  position: absolute;
+	background: white;
+  width: 100%;
+}
+
+.siwapp-search-filters__content {
+  padding: 1rem;
+  border: 1px solid $generic-border-color;
+}
