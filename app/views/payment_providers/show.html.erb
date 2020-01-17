@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @payment_provider.label %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= PaymentProvider.types[provider.provider_type] %>
+</p>
+
+<p>
+  <strong>Connected:</strong>
+  <%= @payment_provider.connected %>
+</p>
+
+<%= link_to 'Edit', edit_payment_provider_path(@payment_provider) %> |
+<%= link_to 'Back', payment_providers_path %>

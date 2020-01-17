@@ -1,0 +1,30 @@
+<div class="table-responsive">
+  <table class="table table-hover table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>Provider</th>
+        <th>Type</th>
+        <th>Currency</th>
+        <th>Instructions</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @payment_receivers.each do |receiver| %>
+        <tr>
+          <td><%= receiver.label %></td>
+          <td><%= receiver.payment_provider.label %></td>
+          <td><%= PaymentReceiver.types[receiver.receiver_type] %></td>
+          <td><%= receiver.currency %></td>
+          <td><%= markdown(receiver.instructions) %></td>
+          <td>
+            <%= link_to 'Edit', edit_payment_receiver_path(receiver) %> | 
+            <%= link_to 'Destroy', receiver, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

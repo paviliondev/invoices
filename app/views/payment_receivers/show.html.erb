@@ -1,0 +1,26 @@
+<p>
+  <strong>Label:</strong>
+  <%= @payment_receiver.label %>
+</p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @payment_receiver.payment_provider.label %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= PaymentReceiver.types[@payment_receiver.receiver_type] %>
+</p>
+
+<p>
+  <strong>Instructions:</strong>
+  <%= markdown(@payment_receiver.instructions) %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @payment_receiver.currency %>
+</p>
+
+<%= link_to 'Edit', edit_payment_receiver_path(@payment_receiver) %>

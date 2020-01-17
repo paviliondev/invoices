@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     unless current_user || controller_name.eql?('sessions')
-      redirect_to login_url # halts request cycle
+      redirect_to '/session/sso' # halts request cycle
     end
   end
 
@@ -66,6 +66,12 @@ class ApplicationController < ActionController::Base
     headers["Cache-Control"] = "no-cache"
     headers["Content-Type"] = "text/csv; charset=utf-8"
     headers["Content-Disposition"] = %(attachment; filename="#{filename}")
+  end
+  
+  def ensure_member
+    unless current_user.is_member?
+      raise Exception.new(I18n.t('sso.not_authorized'))
+    end
   end
 
 end

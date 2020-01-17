@@ -1,0 +1,13 @@
+<div class="action-buttons" data-role="action-buttons">
+  <%= link_to t("customer view"), invoice_path(@invoice, customer_view: true), action: :show, class: "btn btn-primary" %>
+  <%= link_to t("edit customer"), customer_path(@invoice.customer), action: :show, class: "btn btn-secondary" %>
+  
+  <div class="buttons-right">
+    <%= link_to t("delete"), @invoice, method: :delete, "data-confirm" => "Are you sure?", class: "btn btn-secondary float-xs-left no-margin" %>
+    <button class="btn btn-primary" data-role="submit-form" data-target="form[data-role='invoice']" data-type="button">
+      <%= t("save") %>
+    </button>
+  </div>
+</div>
+
+<%= render partial: "form" %>

@@ -41,3 +41,16 @@
     }
   }
 }
+
+#js-navbar {
+  display: flex;
+  align-items: center;
+  
+  .avatar {
+    margin-left: 10px;
+  }
+  
+  .nav-link {
+    padding: .5rem 0 .5rem .5rem;
+  }
+}

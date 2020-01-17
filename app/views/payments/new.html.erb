@@ -1,0 +1,12 @@
+<p id="notice"><%= notice %></p>
+
+<div class="payment-new">
+  
+  <div class="title">Choose a payment method</div>
+  
+  <% @invoice.customer.payment_providers.each do |p| %>
+    <%= render partial: "payment_providers/#{PaymentProvider.types[p.provider_type]}", 
+      locals: { provider: p.connector, invoice_id: @invoice.id } %>
+  <% end %>
+  
+</div>

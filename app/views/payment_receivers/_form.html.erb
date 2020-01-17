@@ -1,0 +1,45 @@
+<%= form_with(model: payment_receiver, local: true) do |form| %>
+  <% if payment_receiver.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(payment_receiver.errors.count, "error") %> prohibited this payment_receiver from being saved:</h2>
+
+      <ul>
+      <% payment_receiver.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="form-group">
+    <%= form.label :label %>
+    <%= form.text_field :label %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :payment_provider %>
+    <%= form.select :payment_provider_id, 
+      options_for_select(PaymentProvider.all.map { |p| [ p.label, p.id ] },
+      payment_receiver.payment_provider_id),
+      { prompt: "Select a provider" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :receiver_type %>
+    <%= form.select :receiver_type, PaymentReceiver.types, { prompt: "Select a type" } %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :currency %>
+    <%= form.select :currency, PaymentReceiver::CURRENCIES, { prompt: "Select a currency" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :instructions %>
+    <%= form.text_area :instructions, { class: 'full-width' } %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

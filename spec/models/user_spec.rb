@@ -37,3 +37,22 @@ RSpec.describe User, :type => :model do
     expect(user.authenticated? 'bad token').to be false
   end
 end
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  avatar_url      :string
+#  email           :string(255)
+#  groups          :string
+#  name            :string(255)
+#  password_digest :string(255)
+#  remember_digest :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#

@@ -468,7 +468,26 @@
 <th class="expander" style="Margin: 0; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0; padding: 0 !important; text-align: left; visibility: hidden; width: 0"></th></tr></table></th>
                   </tr></tbody></table>
                 <% end %>
-
+                
+                <table class="row" style="border-collapse: collapse; border-spacing: 0; display: table; padding: 0; position: relative; text-align: left; vertical-align: top; width: 100%"><tbody>
+                  <tr style="padding: 0; text-align: left; vertical-align: top"><th class="small-12 large-12 columns first last" style="Margin: 0 auto; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0 auto; padding: 0; padding-bottom: 20px; padding-left: 16px; padding-right: 16px; text-align: left; width: 18.57667cm"><table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%"><tr style="padding: 0; text-align: left; vertical-align: top"><th style="Margin: 0; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0; padding: 0; text-align: left">
+                    <h1 style="Margin: 0; Margin-bottom: 10px; color: inherit; font-family: Helvetica, Arial, sans-serif; font-size: 1.2rem; font-weight: normal; line-height: 1.5; margin: 0; margin-bottom: 10px; padding: 0; padding-bottom: 16px; text-align: left; text-transform: uppercase; word-wrap: normal">Payment</h1>
+                  </th></tr>
+                  <tr style="padding: 0; text-align: left; vertical-align: top">
+                  <% invoice.payment_receivers.each do |pr| %>
+                    <th class="small-12 large-4 columns last" style="Margin: 0 auto; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0 auto; padding: 0; padding-bottom: 20px; padding-left: 8px; padding-right: 16px; text-align: left; width: 5.91cm"><table style="border-collapse: collapse; border-spacing: 0; padding: 0; text-align: left; vertical-align: top; width: 100%"><tr style="padding: 0; text-align: left; vertical-align: top"><th style="Margin: 0; color: #3d3f3e; font-family: Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; line-height: 1.5; margin: 0; padding: 0; text-align: left">
+                      <div class="payment">
+                        <div class="description">
+                          <span class="type"><%= t("receiver_type.#{PaymentReceiver.types[pr.receiver_type]}") %></span>
+                          <span>via</span>
+                          <span><%= t("provider_type.#{PaymentProvider.types[pr.payment_provider.provider_type]}") %></span>
+                        </div>
+                        <div class="instructions"><%= markdown(pr.instructions) %></div>
+                      </div>
+                    </th></tr></table></th>
+                  <% end %>
+                  </tr>
+                </tbody></table>
               </div>
             </td></tr></tbody></table>
 

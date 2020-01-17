@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in?
+  before_action :ensure_member
 
   def show
     @user = User.find(params[:id])

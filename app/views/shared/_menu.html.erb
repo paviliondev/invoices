@@ -1,0 +1,32 @@
+<% if current_user.is_member? %>
+  <a class="dropdown-item" href="<%= settings_global_path %>">
+    <%= t("company")  %>
+  </a>
+  <a class="dropdown-item" href="<%= customers_path %>">
+    <%= t("customers") %>
+  </a>
+  <a class="dropdown-item" href="<%= settings_payments_path %>">
+    <%= t("payment") %>
+  </a>
+  <a class="dropdown-item" href="<%= series_index_path %>">
+    <%= t("series") %>
+  </a>
+  <a class="dropdown-item" href="<%= taxes_path %>">
+    <%= t("taxes") %>
+  </a>
+  <a class="dropdown-item" href="<%= templates_path %>">
+    <%= t("templates") %>
+  </a>
+  <a class="dropdown-item" href="<%= settings_tags_path %>">
+    <%= t("tags") %>
+  </a>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="<%= settings_api_token_path %>">
+    <%= t("api token") %>
+  </a>
+  <a class="dropdown-item" href="<%= settings_hooks_path %>">
+    <%= t("hooks") %>
+  </a>
+  <div class="dropdown-divider"></div>
+<% end %>
+<%= link_to t("log out"), logout_path, method: "delete", class: "dropdown-item" %>

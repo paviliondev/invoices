@@ -1,0 +1,4 @@
+<div class="form-group full-width">
+  <%= f.label :tag_list %>
+  <%= f.select :tag_list, options_for_select(@tags, instance.tag_list), {class: 'tags-selector'}, {multiple: true, data: {role: 'tagging'}} %>
+</div>

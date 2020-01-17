@@ -1,6 +1,7 @@
 class TaxesController < ApplicationController
   before_action :set_type
   before_action :set_tax, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_member
 
   # GET /taxes
   # GET /taxes.json

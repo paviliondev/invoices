@@ -1,0 +1,2 @@
+module PaymentReceiversHelper
+end

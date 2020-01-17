@@ -4,6 +4,18 @@ jQuery(document).ready ($) ->
     shippingAddress = $('[data-address="shipping"]')
     shippingAddress.val($('[data-address="invoice"]').val())
     autosize.update(shippingAddress)
+    
+  $("#invoice_customer_id").select2()
+  $("#invoice_customer_id").on "select2:select", (e) ->
+    data = e.params.data
+    ['name',
+     'identification',
+     'contact_person',
+     'email',
+     'invoicing_address',
+     'shipping_address'].forEach (f) ->
+       $("#invoice_#{f}").prop('disabled', data.id == "")
+       $("#invoice_#{f}").val($(data.element).data(f))
 
   if window.location.pathname == Routes.invoices_path()
     # Chart

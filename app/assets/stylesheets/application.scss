@@ -23,9 +23,10 @@
 @import "jquery-ui/autocomplete";
 @import "c3";
 
-// Siwapp Stuff
+// Core
 @import "mixins";
 @import "layout";
+@import "objects/avatar";
 @import "objects/charts";
 @import "objects/headers";
 @import "objects/invoice";
@@ -36,3 +37,4 @@
 @import "objects/select2";
 @import "objects/spinner";
 @import "utils";
+@import "payment";

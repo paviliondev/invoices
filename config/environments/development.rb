@@ -7,33 +7,21 @@ Rails.application.configure do
   config.cache_classes = false
 
   # Do not eager load code on boot.
-  config.eager_load = false
+  config.eager_load = true
 
   # Show full error reports.
   config.consider_all_requests_local = true
 
-  # Enable/disable caching. By default caching is disabled.
-  # Run rails dev:cache to toggle caching.
-  if Rails.root.join('tmp', 'caching-dev.txt').exist?
-    config.action_controller.perform_caching = true
-
-    config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      'Cache-Control' => "public, max-age=#{2.days.to_i}"
-    }
-  else
-    config.action_controller.perform_caching = false
-
-    config.cache_store = :null_store
-  end
+  config.action_controller.perform_caching = true
+  config.cache_store = :memory_store
+  config.public_file_server.headers = { 'Cache-Control' => "public, max-age=#{2.days.to_i}" }
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
-  config.action_mailer.perform_caching = false
+  # Mail setup  
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -61,4 +49,8 @@ Rails.application.configure do
 
   # Allow web_console for docker ips
   config.web_console.whitelisted_ips = '172.19.0.0/24'
+  
+  config.after_initialize do
+    Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+  end
 end

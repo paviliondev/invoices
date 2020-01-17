@@ -1,4 +1,4 @@
-class InvoiceMailer < ApplicationMailer
+class InvoiceMailer < ActionMailer::Base
   add_template_helper TemplatesHelper
   add_template_helper ApplicationHelper
 
@@ -25,10 +25,12 @@ class InvoiceMailer < ApplicationMailer
     email_body = render_to_string :inline => body_template,
       :locals => {:invoice => @invoice, :settings => Settings}
     attachments["#{@invoice}.pdf"] = @invoice.pdf(pdf_html)
+    
+    from_email = (Rails.env.development? || Rails.env.test?) ? 'invoices@company.com' : Settings.company_email
 
     # Sending the email
     mail(
-      from: Settings.company_email,
+      from: from_email,
       to: @invoice.email,
       subject: email_subject,
       body: email_body

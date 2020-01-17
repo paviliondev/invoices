@@ -1,6 +1,6 @@
 # Pavilion Invoices
 
-This app is a fork of [Siwapp](https://github.com/siwapp/siwapp), with additional services to make it production-ready. We're forking the existing Siwapp project, partly because it's lightly maintained, and partly to allow us to fully integrate invoicing into our Discourse-based work system.
+This app manages Pavilion's invoices. It is based on [Siwapp](https://github.com/siwapp/siwapp), but has been modified significantly.
 
 There are 4 services in the app, each with their own docker container.
 
@@ -11,10 +11,6 @@ There are 4 services in the app, each with their own docker container.
 3. Web. An Nginx webserver.
 
 4. Certbot.
-
-## API
-
-Until it is necessary to develop our own API documentation, please refer to the [Siwapp API Documentation](https://github.com/siwapp/siwapp/blob/master/API_DOC.md) for all API-related information.
 
 ## Setup
 
@@ -46,7 +42,7 @@ create role invoices_db_user login createdb;
 \q
 ```
 
-And try again.
+and try again.
 
 ### Docker
 
@@ -75,6 +71,10 @@ docker-compose build app
 docker-compose up --no-deps -d app
 ```
 
-For en explanation of these commands and their arguments [see here](https://docs.docker.com/compose/production/).
+For an explanation of these commands and their arguments [see here](https://docs.docker.com/compose/production/).
 
-Note that when changing code, we only need to redeploy the web container. The db, web and certbot containers need not be touched.
+Note that when changing code, you only need to redeploy the web container.
+
+## API
+
+See API_DOC.md

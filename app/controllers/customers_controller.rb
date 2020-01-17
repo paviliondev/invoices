@@ -5,6 +5,7 @@ class CustomersController < ApplicationController
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   before_action :set_tags, only: [:index, :new, :create, :edit, :update, :destroy]
+  before_action :ensure_member
 
   # GET /customers
   def index
@@ -40,6 +41,7 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
+    set_redirect_address(request.original_fullpath, "customers")
   end
 
   # POST /customers
@@ -100,8 +102,17 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
-      params.require(:customer).permit(:name, :identification, :email, :contact_person,
-                                       :invoicing_address, :shipping_address, :active, tag_list: [])
+      params.require(:customer).permit(
+        :name,
+        :identification,
+        :email,
+        :contact_person,
+        :group,
+        :invoicing_address,
+        :shipping_address,
+        :active,
+        tag_list: []
+      )
     end
 
     def set_tags

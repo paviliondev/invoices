@@ -1,0 +1,24 @@
+<div class="form-group">
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control', disabled: disabled %>
+</div>
+
+<div class="form-group">
+  <%= f.label :identification %>
+  <%= f.text_field :identification, class: 'form-control', disabled: disabled %>
+</div>
+
+<div class="form-group">
+  <%= f.label :contact_person %>
+  <%= f.text_field :contact_person, class: 'form-control', disabled: disabled %>
+</div>
+
+<div class="form-group">
+  <%= f.label :email %>
+  <%= f.email_field :email, class: 'form-control', disabled: disabled %>
+</div>
+
+<div class="form-group full-width">
+  <%= f.label :invoicing_address %>
+  <%= f.text_area :invoicing_address, class: 'form-control autosize', "data-address": "invoice", disabled: disabled %>
+</div>

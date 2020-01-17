@@ -1,3 +1,15 @@
+form.invoice {
+  margin: 0 0.5rem;
+}
+
+form h1 {
+  display: inline-block;
+  
+  + span {
+    margin-left: 10px;
+  }
+}
+
 .invoice-table {
   border-top: 1px solid $table-border-color;
 }

@@ -38,6 +38,9 @@ group :development, :test do
   gem 'shoulda-matchers'
 
   gem 'timecop'
+  
+  gem 'annotate'
+  gem "letter_opener"
 end
 
 # Access an IRB console on exception pages or by using <%= console %> in views
@@ -78,3 +81,10 @@ gem 'http'
 # for translation
 gem 'route_translator'
 gem 'dotenv-rails', groups: [:development, :test]
+
+## For payment connectors
+gem 'stripe'
+gem 'excon'
+
+## for markdown
+gem 'redcarpet'

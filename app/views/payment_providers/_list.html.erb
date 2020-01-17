@@ -1,0 +1,26 @@
+<div class="table-responsive">
+  <table class="table table-hover table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Label</th>
+        <th>Type</th>
+        <th>Connected</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @payment_providers.each do |provider| %>
+        <tr>
+          <td><%= provider.label %></td>
+          <td><%= PaymentProvider.types[provider.provider_type] %></td>
+          <td><%= provider.connected %></td>
+          <td>
+            <%= link_to 'Edit', edit_payment_provider_path(provider) %> |
+            <%= link_to 'Destroy', provider, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

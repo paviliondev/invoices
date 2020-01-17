@@ -1,9 +1,9 @@
 class InvoicesController < CommonsController
 
   def show
-    # Shows the template in an iframe
-    if @invoice.get_status != :paid
-      # Redirect to edit if invoice not closed
+    if @invoice.get_status != :paid &&
+       current_user.is_member? &&
+       params[:customer_view].blank?
       redirect_to action: :edit
     else
       render
@@ -124,7 +124,6 @@ class InvoicesController < CommonsController
     redirect_to action: :index
   end
 
-
   protected
 
   def set_listing(instances)
@@ -144,12 +143,9 @@ class InvoicesController < CommonsController
       :number,
       :issue_date,
       :due_date,
-
       :email_template_id,
       :print_template_id,
-
       :failed,
-
       payments_attributes: [
         :id,
         :date,

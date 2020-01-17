@@ -7,6 +7,7 @@ class CommonsController < ApplicationController
   before_action :configure_search, only: [:index, :chart_data]
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
+  before_action :ensure_member, only: [:create, :edit, :update, :destroy]
 
   # Renders a common's template in html and pdf formats
   def print_template
@@ -175,7 +176,6 @@ class CommonsController < ApplicationController
     [
       :series_id,
       :currency,
-
       :customer_id,
       :identification,
       :name,
@@ -186,7 +186,7 @@ class CommonsController < ApplicationController
       :terms,
       :notes,
       :draft,
-
+      payment_receiver_ids: [],
       items_attributes: [
         :id,
         :description,
@@ -196,7 +196,6 @@ class CommonsController < ApplicationController
         {:tax_ids => []},
         :_destroy
       ],
-
       tag_list: []
     ]
   end

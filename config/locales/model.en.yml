@@ -53,9 +53,11 @@ en:
   identification:        Identification
   invoice:               Invoice
   invoices:              Invoices
+  items:                 Items
   legal terms:           Legal terms
   log out:               Log out
   logo:                  Logo
+  meta:                  Meta Attributes
   my:                    My
   my account:            My Account
   name:                  Name

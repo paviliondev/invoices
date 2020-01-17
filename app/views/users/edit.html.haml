@@ -10,6 +10,6 @@
         - @user.errors.full_messages.each do |message|
           %li= message
   %p
-    = render partial: 'users/form_fields', locals: {f: f}
+    = render partial: 'users/form_fields', locals: {f: f, disabled: false}
   .actions
     = f.submit "Update my account", class: "btn btn-primary"

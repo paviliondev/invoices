@@ -1,4 +1,5 @@
 class RecurringInvoicesController < CommonsController
+  before_action :ensure_member
 
   def generate
     # Generates pending invoices up to today

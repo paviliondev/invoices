@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_06_08_155530) do
+ActiveRecord::Schema.define(version: 2020_01_16_071738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "common_payment_receivers", force: :cascade do |t|
+    t.bigint "common_id"
+    t.bigint "payment_receiver_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["common_id"], name: "index_common_payment_receivers_on_common_id"
+    t.index ["payment_receiver_id"], name: "index_common_payment_receivers_on_payment_receiver_id"
+  end
 
   create_table "commons", force: :cascade do |t|
     t.integer "series_id"
@@ -79,6 +88,7 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.datetime "deleted_at"
     t.text "meta_attributes"
     t.boolean "active", default: true
+    t.string "group"
     t.index ["deleted_at"], name: "index_customers_on_deleted_at"
     t.index ["name_slug"], name: "cstm_slug_idx", unique: true
   end
@@ -102,6 +112,27 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.integer "tax_id", null: false
   end
 
+  create_table "payment_providers", force: :cascade do |t|
+    t.integer "provider_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "api_key"
+    t.string "external_id"
+    t.string "label"
+    t.boolean "connected"
+  end
+
+  create_table "payment_receivers", force: :cascade do |t|
+    t.integer "receiver_type"
+    t.string "instructions"
+    t.string "currency"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "label"
+    t.bigint "payment_provider_id"
+    t.index ["payment_provider_id"], name: "index_payment_receivers_on_payment_provider_id"
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer "invoice_id", null: false
     t.date "date"
@@ -110,8 +141,11 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.integer "status", default: 1
+    t.bigint "payment_receiver_id"
     t.index ["deleted_at"], name: "index_payments_on_deleted_at"
     t.index ["invoice_id"], name: "invoice_id_idx"
+    t.index ["payment_receiver_id"], name: "index_payments_on_payment_receiver_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -142,6 +176,18 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
+  end
+
+  create_table "single_sign_on_records", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "external_id"
+    t.text "last_payload"
+    t.string "external_username"
+    t.string "external_email"
+    t.string "external_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_single_sign_on_records_on_user_id"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -191,6 +237,8 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.datetime "updated_at", null: false
     t.string "password_digest", limit: 255
     t.string "remember_digest", limit: 255
+    t.string "groups"
+    t.string "avatar_url"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -203,4 +251,9 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.index ["event"], name: "index_webhook_logs_on_event"
   end
 
+  add_foreign_key "common_payment_receivers", "commons"
+  add_foreign_key "common_payment_receivers", "payment_receivers"
+  add_foreign_key "payment_receivers", "payment_providers"
+  add_foreign_key "payments", "payment_receivers"
+  add_foreign_key "single_sign_on_records", "users"
 end

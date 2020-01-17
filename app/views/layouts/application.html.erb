@@ -15,14 +15,6 @@
   <body>
     <%= render partial: 'shared/navbar' %>
     <div class="container-fluid main-body" role="main">
-      <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>">
-          <%= message %>
-        </div>
-      <% end %>
-      <% if current_user and @search %>
-        <%= render 'shared/searchform' %>
-      <% end %>
       <%= content_for?(:content) ? yield(:content) : yield %>
     </div>
   </body>

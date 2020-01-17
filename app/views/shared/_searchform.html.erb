@@ -1,0 +1,38 @@
+<%= search_form_for @search, html: { class: "search-form d-none d-lg-block", id: "js-search-form" } do |f| %>
+  <div class="input-search">
+    <button class="btn btn-light material-icons" data-target="#js-search-filters" data-toggle="collapse" type="button">expand_more</button>
+    <%= f.text_field :with_terms, class: 'form-control', placeholder: 'Search...', title: 'Search by Customer, Email or VAT ID' %>
+    <button class="btn btn-primary material-icons" type="submit">search</button>
+  </div>
+  
+  <div class="search-filters">
+    <div class="collapse search-filters__content bg-light" id="js-search-filters">
+      <%= render 'searchform__filters', f: f %>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <%= label_tag :tag_list, "tags" %>
+            <%= select_tag :tag_list, options_for_select(@tags, params[:tag_list]), {class: 'tags-selector', multiple: true, data: {role: 'tagging'}} %>
+          </div>
+        </div>
+        
+        <div class="col-6">
+          <div class="form-group">
+            <%= label_tag :meta %>
+            <%= text_field_tag :meta, "", class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row justify-content-end">
+        <div class="col-6 text-right">
+          <%= link_to t("export to csv"), '#', class: 'btn btn-primary', data: {role: 'csv-form'} %>
+          <button class="btn btn-primary float-xs-right" type="submit">
+            <%= t("search") %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
-# Siwapp API
+# Invoices API
 
 - [Authentication](#authentication)
 - [Recurring Invoices](#recurring-invoices)
@@ -46,17 +46,17 @@
 
 ## Authentication
 
-  * Generate your security token in you siwapp web application, on the 'My Account/API Token' section.
+  * Generate a security token in the 'My Account/API Token' section.
   * Send that token in every api request as the "Authorization" header:
   `Authorization': 'Token token="abc"'`
-  * You can only access the siwapp API through `https` protocol
+  * You can only access the Invoices API through `https` protocol
 
 ## Recurring Invoices
 
 ### Listing
 
 ````http
-GET https://siwapp-server.com/api/v1/recurring_invoices HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/recurring_invoices HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -130,7 +130,7 @@ Content-Type: application/json; charset=UTF-8
 ### Show
 
 ````http
-GET https://siwapp-server.com/api/v1/recurring_invoices/1 HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/recurring_invoices/1 HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -203,7 +203,7 @@ Content-Type: application/json; charset=UTF-8
 ### Create
 
 ````http
-POST https://siwapp-server.com/api/v1/recurring_invoices HTTP/1.1
+POST https://invoices.thepavilion.io/api/v1/recurring_invoices HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -243,7 +243,7 @@ Content-Type: application/json
 ### Update
 
 ````http
-PUT https://siwapp-server.com/api/v1/recurring_invoices/1 HTTP/1.1
+PUT https://invoices.thepavilion.io/api/v1/recurring_invoices/1 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -262,7 +262,7 @@ Content-Type: application/json
 ### Delete
 
 ```http
-DELETE https://siwapp-server.com/api/v1/recurring_invoices/1 HTTP/1.1
+DELETE https://invoices.thepavilion.io/api/v1/recurring_invoices/1 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 ```
@@ -280,7 +280,7 @@ Generates all the invoices up to now from the recurring invoices.
 It returns the list of invoices created.
 
 ```http
-GET https://siwapp-server.com/api/v1/recurring_invoices/generate_invoices HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/recurring_invoices/generate_invoices HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 ```
@@ -310,7 +310,7 @@ Content-Type: application/json; charset=UTF-8
 ### Listing
 
 ````http
-GET https://siwapp-server.com/api/v1/invoices HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/invoices HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -354,10 +354,10 @@ X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1,
             },
 
             "links": {
-                "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf",
-                "customer": "https://siwapp-server.com/api/v1/customers/2",
-                "payments": "https://siwapp-server.com/api/v1/invoices/1/payments",
-                "items": "https://siwapp-server.com/api/v1/invoices/1/items"
+                "download_link": "https://invoices.thepavilion.io/api/v1/templates/1/invoices/1.pdf",
+                "customer": "https://invoices.thepavilion.io/api/v1/customers/2",
+                "payments": "https://invoices.thepavilion.io/api/v1/invoices/1/payments",
+                "items": "https://invoices.thepavilion.io/api/v1/invoices/1/items"
             }
         }
 
@@ -384,14 +384,14 @@ Search for meta attributes can be done with:
 
 If you wanted to search for invoices named 'acme' whose status is 'paid', you would do a GET request to
 
-`https://siwapp-server.com/api/v1/invoices?q[with_status]=paid&q[with_terms]=acme`
+`https://invoices.thepavilion.io/api/v1/invoices?q[with_status]=paid&q[with_terms]=acme`
 
 ### Getting all invoices from a customer
 
 Use a conveniently nested path:
 
 ````http
-GET https://siwapp-server.com/api/v1/customers/2/invoices HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/customers/2/invoices HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -400,7 +400,7 @@ Authorization: Token token="abc"
 A full representation of the invoice and its items and payments associated.
 
 ````http
-GET https://siwapp-server.com/api/v1/invoices/1 HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/invoices/1 HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -432,7 +432,7 @@ Content-Type: application/json; charset=UTF-8
             "days_to_due":"",
             "series_number": "D-1234-1",
             "status": "paid",
-            "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf"
+            "download_link": "https://invoices.thepavilion.io/api/v1/templates/1/invoices/1.pdf"
         },
 
         "links": {
@@ -449,7 +449,7 @@ Content-Type: application/json; charset=UTF-8
                     "id": "2",
                     "attributes": {
                         "identification": "Acme",
-                        "url": "https://siwapp-server.com/api/v1/customers/2"
+                        "url": "https://invoices.thepavilion.io/api/v1/customers/2"
                     }
                 }
             },
@@ -460,7 +460,7 @@ Content-Type: application/json; charset=UTF-8
                         "notes": "first payment ...",
                         "amount": "33.3",
                         "date": "2012-09-09",
-                        "url": "https://siwapp-server.com/api/v1/payments/17"
+                        "url": "https://invoices.thepavilion.io/api/v1/payments/17"
                     }
                 }]
             },
@@ -485,7 +485,7 @@ Content-Type: application/json; charset=UTF-8
 ### Create
 
 ````http
-POST https://siwapp-server.com/api/v1/invoices HTTP/1.1
+POST https://invoices.thepavilion.io/api/v1/invoices HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -537,7 +537,7 @@ Content-Type: application/json
 ### Update
 
 ````http
-PUT https://siwapp-server.com/api/v1/invoices/1 HTTP/1.1
+PUT https://invoices.thepavilion.io/api/v1/invoices/1 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -559,7 +559,7 @@ Content-Type: application/json
 ### Delete
 
 ```http
-DELETE https://siwapp-server.com/api/v1/invoices/3 HTTP/1.1
+DELETE https://invoices.thepavilion.io/api/v1/invoices/3 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -573,7 +573,7 @@ Content-Type: application/json; charset=utf-8
 ### Send email
 
 ```http
-GET https://siwapp-server.com/api/v1/invoices/3/send_email HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/invoices/3/send_email HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -594,7 +594,7 @@ Content-Type: application/json; charset=utf-8
 List all items of invoice with id 1
 
 ````http
-GET https://siwapp-server.com/api/v1/invoices/1/items HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/invoices/1/items HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -613,8 +613,8 @@ Content-Type: application/json; charset=UTF-8
             "...": "..."
         },
         "links": {
-            "url": "https://siwapp-server.com/api/v1/items/123",
-            "taxes": "https://siwapp-server.com/api/v1/items/123/taxes"
+            "url": "https://invoices.thepavilion.io/api/v1/items/123",
+            "taxes": "https://invoices.thepavilion.io/api/v1/items/123/taxes"
         }
     }]
 }
@@ -626,7 +626,7 @@ Content-Type: application/json; charset=UTF-8
 A full representation of the item, its taxes and a reference to the invoice it belongs to.
 
 ````http
-GET https://siwapp-server.com/api/v1/items/123 HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/items/123 HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -658,7 +658,7 @@ Content-Type: application/json; charset=UTF-8
             }
         },
         "links": {
-            "self": "https://siwapp-server.com/api/v1/items/123"
+            "self": "https://invoices.thepavilion.io/api/v1/items/123"
         }
     }
 }
@@ -669,7 +669,7 @@ Content-Type: application/json; charset=UTF-8
 Create an item for the invoice with id=1
 
 ````http
-POST https://siwapp-server.com/api/v1/invoices/1/items HTTP/1.1
+POST https://invoices.thepavilion.io/api/v1/invoices/1/items HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -694,7 +694,7 @@ Content-Type: application/json
 ### Update
 
 ````http
-PUT https://siwapp-server.com/api/v1/items/12 HTTP/1.1
+PUT https://invoices.thepavilion.io/api/v1/items/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -714,7 +714,7 @@ Content-Type: application/json
 ### Delete
 
 ````http
-DELETE https://siwapp-server.com/api/v1/items/12 HTTP/1.1
+DELETE https://invoices.thepavilion.io/api/v1/items/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 ````
@@ -733,7 +733,7 @@ Content-Type: application/json; charset=utf-8
 List all payments of invoice with id 1
 
 ````http
-GET https://siwapp-server.com/api/v1/invoices/1/payments HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/invoices/1/payments HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -748,7 +748,7 @@ Content-Type: application/json; charset=UTF-8
         "notes": "first payment",
         "amount": "33.2",
         "...": "...",
-        "url": "https://siwapp-server.com/api/v1/payments/333"
+        "url": "https://invoices.thepavilion.io/api/v1/payments/333"
     }
 ]
 ````
@@ -758,7 +758,7 @@ Content-Type: application/json; charset=UTF-8
 A full representation of the payment and a reference to the invoice it belongs to.
 
 ````http
-GET https://siwapp-server.com/api/v1/payments/333 HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/payments/333 HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -784,7 +784,7 @@ Content-Type: application/json; charset=UTF-8
             }
         },
         "links": {
-            "self": "https://siwapp-server.com/api/v1/items/333"
+            "self": "https://invoices.thepavilion.io/api/v1/items/333"
         }
     }
 }
@@ -795,7 +795,7 @@ Content-Type: application/json; charset=UTF-8
 Create a payment for the invoice with id=1
 
 ````http
-POST https://siwapp-server.com/api/v1/invoices/1/payments HTTP/1.1
+POST https://invoices.thepavilion.io/api/v1/invoices/1/payments HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -815,7 +815,7 @@ Content-Type: application/json
 ### Update
 
 ````http
-PUT https://siwapp-server.com/api/v1/payments/12 HTTP/1.1
+PUT https://invoices.thepavilion.io/api/v1/payments/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -834,7 +834,7 @@ Content-Type: application/json
 ### Delete
 
 ````http
-DELETE https://siwapp-server.com/api/v1/payments/12 HTTP/1.1
+DELETE https://invoices.thepavilion.io/api/v1/payments/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 ````
@@ -853,7 +853,7 @@ Content-Type: application/json; charset=utf-8
 List all taxes
 
 ````http
-GET https://siwapp-server.com/api/v1/taxes HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/taxes HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -874,7 +874,7 @@ Content-Type: application/json; charset=UTF-8
                 "active": "true"
             },
             "links": {
-                 "self": "https://siwapp-server.com/api/v1/taxes/2"
+                 "self": "https://invoices.thepavilion.io/api/v1/taxes/2"
             }
         }
     ]
@@ -889,7 +889,7 @@ Content-Type: application/json; charset=UTF-8
 A full representation of the tax.
 
 ````http
-GET https://siwapp-server.com/api/v1/taxes/2 HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/taxes/2 HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -908,7 +908,7 @@ Content-Type: application/json; charset=UTF-8
             "active": "true"
         },
         "links": {
-            "self": "https://siwapp-server.com/api/v1/taxes/2"
+            "self": "https://invoices.thepavilion.io/api/v1/taxes/2"
         }
     }
 }
@@ -919,7 +919,7 @@ Content-Type: application/json; charset=UTF-8
 Create a tax
 
 ````http
-POST https://siwapp-server.com/api/v1/taxes HTTP/1.1
+POST https://invoices.thepavilion.io/api/v1/taxes HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -939,7 +939,7 @@ Content-Type: application/json
 ### Update
 
 ````http
-PUT https://siwapp-server.com/api/v1/taxes/5 HTTP/1.1
+PUT https://invoices.thepavilion.io/api/v1/taxes/5 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -958,7 +958,7 @@ Content-Type: application/json
 ### Delete
 
 ````http
-DELETE https://siwapp-server.com/api/v1/taxes/12 HTTP/1.1
+DELETE https://invoices.thepavilion.io/api/v1/taxes/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 ````
@@ -977,7 +977,7 @@ Content-Type: application/json; charset=utf-8
 List all series
 
 ````http
-GET https://siwapp-server.com/api/v1/series HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/series HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -998,7 +998,7 @@ Content-Type: application/json; charset=UTF-8
                 "default": null
             },
             "links": {
-                "self": "https://siwapp-server.com/api/v1/taxes/2"
+                "self": "https://invoices.thepavilion.io/api/v1/taxes/2"
             }
         }
     ]
@@ -1014,7 +1014,7 @@ Content-Type: application/json; charset=UTF-8
 A full representation of the Series
 
 ````http
-GET https://siwapp-server.com/api/v1/series/2 HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/series/2 HTTP/1.1
 Authorization: Token token="abc"
 ````
 
@@ -1032,7 +1032,7 @@ Content-Type: application/json; charset=UTF-8
             "default": null
         },
         "links": {
-            "self": "https://siwapp-server.com/api/v1/taxes/2"
+            "self": "https://invoices.thepavilion.io/api/v1/taxes/2"
         }
     }
 }
@@ -1043,7 +1043,7 @@ Content-Type: application/json; charset=UTF-8
 Create a series
 
 ````http
-POST https://siwapp-server.com/api/v1/series HTTP/1.1
+POST https://invoices.thepavilion.io/api/v1/series HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -1064,7 +1064,7 @@ Content-Type: application/json
 ### Update
 
 ````http
-PUT https://siwapp-server.com/api/v1/taxes/5 HTTP/1.1
+PUT https://invoices.thepavilion.io/api/v1/taxes/5 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -1083,7 +1083,7 @@ Content-Type: application/json
 ### Delete
 
 ````http
-DELETE https://siwapp-server.com/api/v1/series/12 HTTP/1.1
+DELETE https://invoices.thepavilion.io/api/v1/series/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 ````
@@ -1107,7 +1107,7 @@ You can filter by date and currency with the next keys:
 
 
 ````http
-GET https://siwapp-server.com/api/v1/stats HTTP/1.1
+GET https://invoices.thepavilion.io/api/v1/stats HTTP/1.1
 Authorization: Token token="abc"
 ````
 

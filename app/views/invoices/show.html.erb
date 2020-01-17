@@ -1,0 +1,28 @@
+<% title("Invoices", @invoice.name) %>
+
+<% if @invoice.payment_pending? %>
+  <div class="invoice-notice">
+    Payment Pending
+  </div>
+<% end %>
+
+<div class="action-buttons" data-role="action-buttons">
+  <% unless @invoice.paid %>
+    <% if @invoice.payment_pending? %>
+      <%= link_to t("change payment"), edit_invoice_payment_path(@invoice), class: 'btn btn-danger' %>
+    <% else %>
+      <%= link_to t("pay now"), new_invoice_payment_path(@invoice), class: 'btn btn-primary' %>
+    <% end %>
+  <% end %>
+  
+  <%= link_to t("send by email"), send_email_invoice_path, class: 'btn btn-primary' %>
+  <%= link_to t("download pdf"), print_invoice_path(@invoice,:format=>:pdf), class: 'btn btn-secondary' %>
+  
+  <div class="buttons-right">
+    <%= link_to t("edit"), edit_invoice_path(@invoice), class: 'btn btn-secondary' %>
+  </div>
+</div>
+
+<div class="invoice-preview-container">
+  <iframe class="invoice-preview" src="<%= print_invoice_path(@invoice) %>"></iframe>
+</div>

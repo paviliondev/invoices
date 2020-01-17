@@ -1,0 +1,15 @@
+<h2>Payment</h2>
+
+<br>
+
+<h3 class="inline">Providers</h3>
+<span><%= link_to 'New', new_payment_provider_path %></span>
+
+<%= render partial: "payment_providers/list" %>
+
+<br>
+
+<h3 class="inline">Receivers</h3>
+<span><%= link_to 'New', new_payment_receiver_path %></span>
+
+<%= render partial: "payment_receivers/list" %>
