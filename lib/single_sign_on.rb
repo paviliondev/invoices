@@ -170,7 +170,7 @@ class SingleSignOn
     
     if groups && (customer = Customer.find_by(group: groups.split(',')))
       user.groups = groups
-      user.customer = customer
+      user.customer_id = customer.id
     end
     
     user.avatar_url = avatar_url
