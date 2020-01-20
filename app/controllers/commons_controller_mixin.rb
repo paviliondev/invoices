@@ -8,6 +8,8 @@ module CommonsControllerMixin
   #
   # Returns the same value received
   def configure_search
+    data = model
+    
     unless current_user.is_member?
       data = model.where(customer_id: current_user.customer.id)
     end
