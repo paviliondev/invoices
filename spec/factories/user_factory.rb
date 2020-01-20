@@ -20,8 +20,14 @@ end
 #  remember_digest :string(255)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  customer_id     :bigint
 #
 # Indexes
 #
-#  index_users_on_email  (email) UNIQUE
+#  index_users_on_customer_id  (customer_id)
+#  index_users_on_email        (email) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (customer_id => customers.id)
 #

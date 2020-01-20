@@ -73,5 +73,11 @@ class ApplicationController < ActionController::Base
       raise Exception.new(I18n.t('sso.not_authorized'))
     end
   end
-
+  
+  def ensure_access
+    unless current_user.is_member? || current_user.customer.present?
+      raise Exception.new(I18n.t('sso.not_authorized'))
+    end
+  end
+  
 end

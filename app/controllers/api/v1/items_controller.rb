@@ -73,7 +73,6 @@ class Api::V1::ItemsController < Api::V1::BaseController
 
       params[:data][:attributes][:taxes].each do |tax_name|
         tax = Tax.find_by_name tax_name
-        puts tax
         if tax and !item.taxes.exists? tax.id
           item.taxes << tax
         end

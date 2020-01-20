@@ -164,10 +164,15 @@ class SingleSignOn
       user = match_email_or_create_user
       sso_record = user.single_sign_on_record
     end
-
+    
     user.email = email
     user.name = name
-    user.groups = groups
+    
+    if groups && (customer = Customer.find_by(group: groups.split(',')))
+      user.groups = groups
+      user.customer = customer
+    end
+    
     user.avatar_url = avatar_url
     
     user.save!

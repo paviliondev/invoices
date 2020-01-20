@@ -49,7 +49,7 @@ class SessionsController < ApplicationController
 
     begin
       if user = sso.lookup_or_create_user
-        unless user.is_member? || user.is_customer? 
+        unless user.is_member? || user.customer 
           render_sso_error(text: I18n.t("sso.not_authorized"), status: 403)
           return
         end

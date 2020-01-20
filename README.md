@@ -38,7 +38,7 @@ The ``db:setup`` may fail with ``role "invoices_db_user" does not exist``. If it
 
 ```
 psql -d postgres
-create role invoices_db_user login createdb;
+create role postgres login createdb superuser;
 \q
 ```
 
@@ -60,7 +60,7 @@ Docker does not yet have easy way to share "machines" between computers to allow
 
 2. Import the ``invoices`` machine using the machine config file (ask angus).
 
-3. Run ``docker-machine use invoices``.
+3. Run ``eval $(docker-machine env invoices)``.
 
 ### Deploy
 
@@ -73,7 +73,15 @@ docker-compose up --no-deps -d app
 
 For an explanation of these commands and their arguments [see here](https://docs.docker.com/compose/production/).
 
-Note that when changing code, you only need to redeploy the web container.
+### Backups
+
+Backups are currently done adhoc via pg_dumpall, e.g. 
+
+```
+docker-compose exec -t db pg_dumpall -c -U postgres | gzip > ~/google/pavilion/admin/invoices/backups/dump_`date +%d-%m-%Y"_"%H_%M_%S`.gz
+```
+
+An automated, chron-based solution in its own container is the next step here.
 
 ## API
 

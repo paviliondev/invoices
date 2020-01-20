@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_071738) do
+ActiveRecord::Schema.define(version: 2020_01_20_061303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,6 +239,8 @@ ActiveRecord::Schema.define(version: 2020_01_16_071738) do
     t.string "remember_digest", limit: 255
     t.string "groups"
     t.string "avatar_url"
+    t.bigint "customer_id"
+    t.index ["customer_id"], name: "index_users_on_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -256,4 +258,5 @@ ActiveRecord::Schema.define(version: 2020_01_16_071738) do
   add_foreign_key "payment_receivers", "payment_providers"
   add_foreign_key "payments", "payment_receivers"
   add_foreign_key "single_sign_on_records", "users"
+  add_foreign_key "users", "customers"
 end

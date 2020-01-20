@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessor :remember_token
   
+  belongs_to :customer, optional: true
   has_one :single_sign_on_record, dependent: :destroy
 
   has_secure_password
@@ -45,10 +46,6 @@ class User < ActiveRecord::Base
   def is_member?
     groups && groups.split(',').include?('members')
   end
-  
-  def is_customer?
-    Customer.where(group: groups.split(',')).exists?
-  end
 end
 
 # == Schema Information
@@ -64,8 +61,14 @@ end
 #  remember_digest :string(255)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  customer_id     :bigint
 #
 # Indexes
 #
-#  index_users_on_email  (email) UNIQUE
+#  index_users_on_customer_id  (customer_id)
+#  index_users_on_email        (email) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (customer_id => customers.id)
 #

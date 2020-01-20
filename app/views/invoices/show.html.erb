@@ -6,20 +6,14 @@
   </div>
 <% end %>
 
-<div class="action-buttons" data-role="action-buttons">
-  <% unless @invoice.paid %>
-    <% if @invoice.payment_pending? %>
-      <%= link_to t("change payment"), edit_invoice_payment_path(@invoice), class: 'btn btn-danger' %>
-    <% else %>
-      <%= link_to t("pay now"), new_invoice_payment_path(@invoice), class: 'btn btn-primary' %>
-    <% end %>
-  <% end %>
-  
+<div class="action-buttons" data-role="action-buttons">  
   <%= link_to t("send by email"), send_email_invoice_path, class: 'btn btn-primary' %>
   <%= link_to t("download pdf"), print_invoice_path(@invoice,:format=>:pdf), class: 'btn btn-secondary' %>
   
   <div class="buttons-right">
-    <%= link_to t("edit"), edit_invoice_path(@invoice), class: 'btn btn-secondary' %>
+    <% if current_user.is_member? %>
+      <%= link_to t("edit"), edit_invoice_path(@invoice), class: 'btn btn-secondary' %>
+    <% end %>
   </div>
 </div>
 

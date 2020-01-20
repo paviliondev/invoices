@@ -8,7 +8,11 @@ module CommonsControllerMixin
   #
   # Returns the same value received
   def configure_search
-    @search = model.ransack(params[:q])
+    unless current_user.is_member?
+      data = model.where(customer_id: current_user.customer.id)
+    end
+    
+    @search = data.ransack(params[:q])
 
     @results = @search.result(distinct: true)\
       .order(issue_date: :desc).order(id: :desc)

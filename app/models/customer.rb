@@ -6,6 +6,7 @@ class Customer < ActiveRecord::Base
   has_many :invoices
   has_many :estimates
   has_many :recurring_invoices
+  has_many :users
 
   # Validation
   validate :valid_customer_identification

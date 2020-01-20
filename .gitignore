@@ -1,4 +1,4 @@
-.env
+*.env
 ./Gemfile.lock
 tmp
 log
