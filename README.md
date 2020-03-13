@@ -20,10 +20,6 @@ As ``.env`` contains secrets, it has not been checked into Github. There is a sa
 
 ## Development
 
-There are two ways to run this app in development, in a local docker environment, or natively.
-
-### Native
-
 1. Install RVM and the current ruby version the app is using (see Gemfile).
 
 2. In the app directory, run:
