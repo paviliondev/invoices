@@ -4,11 +4,11 @@ This app manages Pavilion's invoices. It is based on [Siwapp](https://github.com
 
 There are 4 services in the app, each with their own docker container.
 
-1. Data. A Postgres database.
+1. Data. Postgres database.
 
-2. App. A Rails app.
+2. App. Rails app.
 
-3. Web. An Nginx webserver.
+3. Nginx. Nginx webserver.
 
 4. Certbot.
 
