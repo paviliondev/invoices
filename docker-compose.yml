@@ -12,6 +12,10 @@ services:
       - '5432:5432'
     volumes:
       - db-data:/var/lib/postgresql/db-data
+    environment:
+      POSTGRES_DB: invoices_production
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
   app:
     build: 

@@ -44,34 +44,69 @@ create role postgres login createdb superuser;
 
 and try again.
 
-### Docker
-
-The Docker file is setup to work for a production instance. It should be relatively straightforward to create a development version of the file, e.g. remove asset pre-compilation. If you do this successfully, please commit any changes to master so others can use Docker in development if they wish.
-
 ## Deployment
 
-The app is deployed using [docker-compose](https://docs.docker.com/compose/production/). 
+The app is deployed using git and [docker-compose](https://docs.docker.com/compose/production/). 
 
-### Install the machine
+### Setup (first deployment)
 
-Docker does not yet have easy way to share "machines" between computers to allow multiple developers to deploy to the same Docker host. However, if you make changes to this app and you'd like to deploy it, there is a way:
+Create a server in cloud provider such as [Digital Ocean](https://digitalocean.com). Point the domain you want to use for your invoices app to your server using an A record.
 
-1. Install [machine-share](https://github.com/bhurlow/machine-share).
+SSH into your server
 
-2. Import the ``invoices`` machine using the machine config file (ask angus).
+```
+ssh root@invoices.com
+```
 
-3. Run ``eval $(docker-machine env invoices)``.
+Follow the official guides to install [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/).
 
-### Deploy
+Then pull the latest version of the code into ``/var/invoices``
 
-Once you have the "invoices" docker machine setup, and the ``.env`` file in place, you can deploy your local version to production using
+```
+cd /var
+git clone https://paviliondev/invoices.git
+cd /var/invoices
+```
+
+Create your own .env from .env.sample and add values where needed
+
+```
+cp .env.sample .env
+vi .env
+```
+
+Update the permissions of ``init-letsencrypt.sh``
+
+```
+chmod +x init-letsencrypt.sh
+```
+
+Update the ``domains`` and ``email`` values near the top of ``init-letsencrypt.sh``
+
+```
+vi init-letsencrypt.sh
+```
+
+Run ``init-letsencrypt.sh``
+
+```
+./init-letsencrypt.sh
+```
+
+When the script completes you should see a "Congratulations!" message and nginx starting
+
+```
+2020/03/13 05:14:18 [notice] 9#9: signal process started
+```
+
+### Deploy (and redeploy)
+
+Run these commands to build and deploy. [See further here](https://docs.docker.com/compose/production/).
 
 ```
 docker-compose build app
 docker-compose up --no-deps -d app
 ```
-
-For an explanation of these commands and their arguments [see here](https://docs.docker.com/compose/production/).
 
 ### Backups
 
