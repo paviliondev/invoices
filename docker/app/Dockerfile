@@ -26,10 +26,6 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 ENV RAILS_ROOT /var/www/app
 RUN mkdir -p $RAILS_ROOT
 
-# Setting env up
-ENV RAILS_ENV='production'
-ENV RACK_ENV='production'
-
 # setup folders and install gems
 WORKDIR $RAILS_ROOT
 COPY Gemfile* ./
@@ -38,7 +34,6 @@ COPY . .
 
 # precompile assets
 ARG SECRET_KEY_BASE
-ENV SECRET_KEY_BASE "$SECRET_KEY_BASE"
 RUN bundle exec rake SECRET_KEY_BASE=${SECRET_KEY_BASE} assets:precompile
 
 # add a script to be executed every time the container starts
