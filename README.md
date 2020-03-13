@@ -79,9 +79,26 @@ When the script completes you should see a "Congratulations!" message and nginx 
 2020/03/13 05:14:18 [notice] 9#9: signal process started
 ```
 
-### Deploy (and redeploy)
+### First deploy
 
 Run these commands in the ``/var/invoices`` directory of your server to build and deploy. [See further here](https://docs.docker.com/compose/production/).
+
+```
+docker-compose build
+docker-compose up -d
+```
+
+### Redeploy
+
+If the invoices code is updated, pull it, re-install gems and run migrations
+
+```
+git pull
+bundle install
+rake db:migrate
+```
+
+Deploy the updated code using
 
 ```
 docker-compose build app
@@ -90,7 +107,7 @@ docker-compose up --no-deps -d app
 
 ### Backups
 
-Backups are currently done adhoc via pg_dumpall, e.g. 
+Backups are currently done manually via pg_dumpall, e.g. 
 
 ```
 docker-compose exec -t db pg_dumpall -c -U postgres | gzip > /var/backups/dump_`date +%d-%m-%Y"_"%H_%M_%S`.gz
