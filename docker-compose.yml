@@ -39,6 +39,8 @@ services:
       SSO_SECRET: ${SSO_SECRET}
       HOSTNAME: ${HOSTNAME}
       RAILS_LOG_TO_STDOUT: 'true'
+    volumes:
+      - app:/var/www/app
     ports:
       - 3000:3000
     depends_on:
