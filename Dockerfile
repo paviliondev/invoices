@@ -22,10 +22,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt update && apt install yarn
 
-# Set an environment variable where the Rails app is installed to inside of Docker image:
-ENV RAILS_ROOT /var/www/app
-
 # Setting env up
+ENV RAILS_ROOT=/var/www/app
 ENV RAILS_ENV='production'
 ENV RACK_ENV='production'
 
