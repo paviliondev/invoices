@@ -2,22 +2,6 @@
 
 This app manages Pavilion's invoices. It is based on [Siwapp](https://github.com/siwapp/siwapp), but has been modified significantly.
 
-There are 4 services in the app, each with their own docker container.
-
-1. Data. Postgres database.
-
-2. App. Rails app.
-
-3. Nginx. Nginx webserver.
-
-4. Certbot.
-
-## Setup
-
-The app assumes you have a ``.env`` file in the app directory. The variables in this file become environment variables in the deployed container.
-
-As ``.env`` contains secrets, it has not been checked into Github. There is a sample file in the repository. For the production .env file, please ask Angus for a copy.
-
 ## Development
 
 1. Install RVM and the current ruby version the app is using (see Gemfile).
@@ -38,7 +22,7 @@ create role postgres login createdb superuser;
 \q
 ```
 
-and try again.
+Then try again.
 
 ## Deployment
 
@@ -97,7 +81,7 @@ When the script completes you should see a "Congratulations!" message and nginx 
 
 ### Deploy (and redeploy)
 
-Run these commands to build and deploy. [See further here](https://docs.docker.com/compose/production/).
+Run these commands in the ``/var/invoices`` directory of your server to build and deploy. [See further here](https://docs.docker.com/compose/production/).
 
 ```
 docker-compose build app
@@ -109,10 +93,8 @@ docker-compose up --no-deps -d app
 Backups are currently done adhoc via pg_dumpall, e.g. 
 
 ```
-docker-compose exec -t db pg_dumpall -c -U postgres | gzip > ~/google/pavilion/admin/invoices/backups/dump_`date +%d-%m-%Y"_"%H_%M_%S`.gz
+docker-compose exec -t db pg_dumpall -c -U postgres | gzip > /var/backups/dump_`date +%d-%m-%Y"_"%H_%M_%S`.gz
 ```
-
-An automated, chron-based solution in its own container is the next step here.
 
 ## API
 
