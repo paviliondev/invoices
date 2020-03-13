@@ -1,4 +1,4 @@
-# ./docker/web/Dockerfile
+# ./docker/nginx/Dockerfile
 # Base image:
 FROM nginx
 

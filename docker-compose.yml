@@ -51,7 +51,7 @@ services:
   nginx:
     build: 
       context: .
-      dockerfile: ./docker/app/Dockerfile
+      dockerfile: ./docker/nginx/Dockerfile
     depends_on:
       - app
     restart: always
