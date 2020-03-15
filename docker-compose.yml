@@ -21,7 +21,6 @@ services:
       dockerfile: ./docker/app/Dockerfile
       args:
         - SECRET_KEY_BASE=${SECRET_KEY_BASE}
-    entrypoint: /var/www/app/entrypoint.sh
     env_file: .env
     environment:
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
