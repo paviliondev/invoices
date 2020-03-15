@@ -39,6 +39,8 @@ services:
     restart: unless-stopped
     depends_on:
       - db
+    expose:
+      - "3000:3000"
       
   nginx: 
     image: nginx:latest
@@ -50,8 +52,8 @@ services:
     depends_on:
       - app
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
 
   certbot:
     image: certbot/certbot
