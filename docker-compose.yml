@@ -39,7 +39,7 @@ services:
     restart: unless-stopped
     depends_on:
       - db
-    expose:
+    ports:
       - "3000:3000"
       
   nginx: 
