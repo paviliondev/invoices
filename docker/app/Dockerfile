@@ -42,6 +42,11 @@ COPY . .
 ARG SECRET_KEY_BASE
 RUN bundle exec rake SECRET_KEY_BASE=${SECRET_KEY_BASE} assets:precompile
 
+# entrypoint script
+COPY ./docker/app/entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
 # expose port 3000
 EXPOSE 3000
 

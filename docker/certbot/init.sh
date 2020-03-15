@@ -7,7 +7,7 @@ fi
 
 domains=(invoices.thepavilion.io www.invoices.thepavilion.io)
 rsa_key_size=4096
-data_path="./docker/certbot"
+data_path="."
 email="angus@thepavilion.io"
 staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
 

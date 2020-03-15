@@ -55,29 +55,25 @@ cp .env.sample .env
 vi .env
 ```
 
-Update the permissions of ``init-letsencrypt.sh``
+Update the permissions of ``docker/certbot/init.sh``
 
 ```
-chmod +x init-letsencrypt.sh
+chmod +x docker/certbot/init.sh
 ```
 
-Update the ``domains`` and ``email`` values near the top of ``init-letsencrypt.sh``
+Update the ``domains`` and ``email`` values near the top of ``docker/certbot/init.sh``
 
 ```
-vi init-letsencrypt.sh
+vi docker/certbot/init.sh
 ```
 
-Run ``init-letsencrypt.sh``
+Run ``docker/certbot/init.sh``
 
 ```
-./init-letsencrypt.sh
+./docker/certbot/init.sh
 ```
 
-When the script completes you should see a "Congratulations!" message and nginx starting
-
-```
-2020/03/13 05:14:18 [notice] 9#9: signal process started
-```
+When the script completes you should see a "Congratulations!" message and nginx starting.
 
 ### First deploy
 
