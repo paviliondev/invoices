@@ -9,8 +9,10 @@ default: &default
   encoding: unicode
   host: db
   username: postgres
-  password: 
+  password:
+  port: 5423
   pool: 5
+  timeout: 5000
 
 development:
   <<: *default
@@ -19,6 +21,8 @@ development:
 
 production:
   <<: *default
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
   database: invoices_production
 
 test:
