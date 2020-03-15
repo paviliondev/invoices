@@ -84,14 +84,18 @@ docker-compose build
 docker-compose up -d
 ```
 
+The setup your db
+
+```
+docker-compose run app rake db:create db:setup
+```
+
 ### Redeploy
 
-If the invoices code is updated, pull it, re-install gems and run migrations
+If the invoices code is updated, pull it.
 
 ```
 git pull
-bundle install
-rake db:migrate
 ```
 
 Deploy the updated code using
@@ -99,6 +103,12 @@ Deploy the updated code using
 ```
 docker-compose build app
 docker-compose up --no-deps -d app
+```
+
+Run migrations
+
+```
+docker-compose run rake db:migrate
 ```
 
 ### Backups
