@@ -37,4 +37,5 @@ ARG SECRET_KEY_BASE
 RUN bundle exec rake SECRET_KEY_BASE=${SECRET_KEY_BASE} assets:precompile
 
 EXPOSE 3000
+
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
