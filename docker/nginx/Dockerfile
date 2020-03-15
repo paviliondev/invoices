@@ -20,8 +20,6 @@ COPY public public/
 # Copy Nginx config template
 COPY docker/nginx/app.conf /etc/nginx/conf.d/default.conf
 
-STOPSIGNAL SIGTERM
-
 EXPOSE 80
 
 # Use the "exec" form of CMD so Nginx shuts down gracefully on SIGTERM (i.e. `docker stop`)
