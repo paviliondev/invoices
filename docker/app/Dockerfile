@@ -26,8 +26,14 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 ENV RAILS_ROOT /var/www/app
 RUN mkdir -p $RAILS_ROOT
 
-# setup folders and install gems
+# Set working directory
 WORKDIR $RAILS_ROOT
+
+# Setting env up
+ENV RAILS_ENV='production'
+ENV RACK_ENV='production'
+
+# setup folders and install gems
 COPY Gemfile* ./
 RUN bundle install
 COPY . .
@@ -36,6 +42,8 @@ COPY . .
 ARG SECRET_KEY_BASE
 RUN bundle exec rake SECRET_KEY_BASE=${SECRET_KEY_BASE} assets:precompile
 
+# expose port 3000
 EXPOSE 3000
 
+# start puma
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
