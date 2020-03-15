@@ -36,11 +36,5 @@ COPY . .
 ARG SECRET_KEY_BASE
 RUN bundle exec rake SECRET_KEY_BASE=${SECRET_KEY_BASE} assets:precompile
 
-# add a script to be executed every time the container starts
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
-
-# start the main process
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
