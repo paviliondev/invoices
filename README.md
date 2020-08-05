@@ -44,7 +44,7 @@ Then pull the latest version of the code into ``/var/invoices``
 
 ```
 cd /var
-git clone https://paviliondev/invoices.git
+git clone https://github.com/paviliondev/invoices.git
 cd /var/invoices
 ```
 
@@ -55,25 +55,7 @@ cp .env.sample .env
 vi .env
 ```
 
-Update the permissions of ``docker/certbot/init.sh``
-
-```
-chmod +x docker/certbot/init.sh
-```
-
-Update the ``domains`` and ``email`` values near the top of ``docker/certbot/init.sh``
-
-```
-vi docker/certbot/init.sh
-```
-
-Run ``docker/certbot/init.sh``
-
-```
-./docker/certbot/init.sh
-```
-
-When the script completes you should see a "Congratulations!" message and nginx starting.
+Setup nginx and certbot.
 
 ### First deploy
 
